@@ -1,0 +1,1 @@
+from vk_poster.vk_poster import VK
