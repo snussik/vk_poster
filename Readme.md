@@ -13,9 +13,9 @@ Refers to: https://habr.com/ru/post/520860/
 `https://api.vk.com/blank.html#access_token=TOKEN&expires_in=0&user_id=9999999`.
 5. Get group address `club123456`.
 6. Create `settings.py`:
-```
+```python
 {
-    "vk_ap_id" : ID приложения,
+    "vk_ap_id" : ID_приложения,
     "token" : "TOKEN",
     "group" : "club123456",
     "v" :  5.122
@@ -23,7 +23,7 @@ Refers to: https://habr.com/ru/post/520860/
 
 ```
 7. Use like this:
-```
+```python
 from vk_poster import VK
 from settings import settings
 
