@@ -23,7 +23,6 @@ class VK:
             self.app.method("groups.getById", {
                             "group_ids": group_short_name})[0]['id']
         self.body = dict(owner_id=self.group_id, from_group=1, v=self.v)
-        print('initialized')
 
     def quene_msg(self, msg=None, photo=None, quene_time=356, date:Optional[datetime.datetime]=None) -> int:
         """Posting quened message to VK group
@@ -39,8 +38,6 @@ class VK:
         Returns:
             int: If posting was ok - returns post id, otherwise - returns -1
         """
-
-        print("MESSAGE")
 
         if msg == photo and msg is None:
             raise ValueError(
