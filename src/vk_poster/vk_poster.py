@@ -1,5 +1,6 @@
 import vk_api
 import datetime
+from typing import Optional
 
 
 class VK:
@@ -22,8 +23,9 @@ class VK:
             self.app.method("groups.getById", {
                             "group_ids": group_short_name})[0]['id']
         self.body = dict(owner_id=self.group_id, from_group=1, v=self.v)
+        print('initialized')
 
-    def quene_msg(self, msg=None, photo=None, quene_time=356) -> int:
+    def quene_msg(self, msg=None, photo=None, quene_time=356, date:Optional[datetime.datetime]=None) -> int:
         """Posting quened message to VK group
 
         Args:
@@ -38,13 +40,15 @@ class VK:
             int: If posting was ok - returns post id, otherwise - returns -1
         """
 
+        print("MESSAGE")
+
         if msg == photo and msg is None:
             raise ValueError(
                 f"Message ({msg}) or attachment ({photo}) should be given")
 
         message_body = {
             **self.body,
-            "publish_date": self.get_time(quene_time),
+            "publish_date": self.get_time(quene_time,date=date),
         }
 
         if photo is not None:
@@ -59,15 +63,18 @@ class VK:
             return result["post_id"]
         return -1
 
-    def get_time(self, days: int) -> float:
+    def get_time(self, days: int, date:Optional[datetime.datetime]=None) -> float:
         """Returns date in future x days in unixtimestamp format
 
         Args:
             days (int): Number of days in future from now
+            date (datetime.datetime, optional): Exact daytime. Defaults to None
 
         Returns:
             float: date in future  in unixtimestamp format
         """
+        if date is not None:
+            return date.timestamp()
 
         unix_timestamp = datetime.datetime.now(
             datetime.timezone.utc).timestamp()
